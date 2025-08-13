@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>EUR/USD</title>
+</head>
+<body>
+  <h1>💱 EUR/USD</h1>
+
+  <h2>📈 نمودار قیمت</h2>
+  <iframe src="https://www.tradingview.com/chart/?symbol=FX:EURUSD" width="100%" height="400"></iframe>
+
+  <h2>📰 اخبار اقتصادی</h2>
+  <div id="news">در حال بارگذاری...</div>
+
+  <h2>🖼️ تصویر چارت</h2>
+  <img src="assets/chart-images/eurusd-latest.png" width="100%" alt="چارت EUR/USD">
+
+  <script>
+    async function loadNews() {
+      const res = await fetch("https://forex-news-worker.yourname.workers.dev?symbol=EURUSD");
+      const data = await res.json();
+
+      const container = document.getElementById("news");
+      container.innerHTML = "";
+      data.forEach(event => {
+        container.innerHTML += `
+          <p>
+            عنوان: ${event.title}<br>
+            اهمیت خبر: ${event.importance}<br>
+            پیش‌بینی: ${event.forecast}<br>
+            واقعی: ${event.actual}<br>
+            احتمال حرکت: ${event.predictedImpact} پیپ ${event.direction}<br>
+            ساعت وقوع: ${event.time}
+          </p>
+        `;
+      });
+    }
+
+    loadNews();
+  </script>
+</body>
+</html>

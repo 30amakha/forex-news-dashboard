@@ -1,51 +1,23 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-  <meta charset="UTF-8">
-  <title>GBP/USD - داشبورد تحلیل</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>💱 جفت ارز: GBP/USD</h1>
-
-  <section>
-    <h2>📈 نمودار قیمت لحظه‌ای</h2>
-    <iframe src="https://www.tradingview.com/chart/?symbol=FX:GBPUSD" width="100%" height="400"></iframe>
-  </section>
-
-  <section>
-    <h2>📰 اخبار اقتصادی مرتبط</h2>
-    <div id="news">در حال بارگذاری...</div>
-  </section>
-
-  <section>
-    <h2>🖼️ تصویر چارت ۱ دقیقه‌ای</h2>
-    <img src="assets/chart-images/gbpusd-latest.png" alt="چارت GBP/USD" width="100%">
-  </section>
-
-  <script>
-    async function loadNews() {
-      const res = await fetch("https://forex-news-worker.yourname.workers.dev?symbol=GBPUSD");
-      const data = await res.json();
-
-      const container = document.getElementById("news");
-      container.innerHTML = "";
-      data.forEach(event => {
-        container.innerHTML += `
-          <div class="event">
-            <strong>📊 عنوان خبر:</strong> ${event.title}<br>
-            <strong>💱 نوع ارز:</strong> GBP/USD<br>
-            <strong>🔥 اهمیت خبر:</strong> ${event.importance}<br>
-            <strong>📈 پیش‌بینی:</strong> ${event.forecast}<br>
-            <strong>📉 مقدار واقعی:</strong> ${event.actual}<br>
-            <strong>📌 احتمال حرکت:</strong> ${event.predictedImpact} پیپ ${event.direction}<br>
-            <strong>🕒 ساعت وقوع:</strong> ${event.time}
-          </div>
-        `;
-      });
-    }
-
-    loadNews();
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div id="tradingview_chart"></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+    new TradingView.widget({
+      "width": "100%",
+      "height": 400,
+      "symbol": "FX:GBPUSD",
+      "interval": "1",
+      "timezone": "Etc/UTC",
+      "theme": "light",
+      "style": "1",
+      "locale": "fa",
+      "toolbar_bg": "#f1f3f6",
+      "enable_publishing": false,
+      "hide_top_toolbar": true,
+      "save_image": false,
+      "container_id": "tradingview_chart"
+    });
   </script>
-</body>
-</html>
+</div>
+<!-- TradingView Widget END -->
